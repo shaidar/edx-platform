@@ -38,3 +38,26 @@ REDIRECT_TO_COURSEWARE_MICROFRONTEND = ExperimentWaffleFlag(
 COURSEWARE_MICROFRONTEND_COURSE_TEAM_PREVIEW = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'microfrontend_course_team_preview', __name__
 )
+
+# Waffle flag to enable the course end page in the learning MFE.
+#
+# .. toggle_name: courseware.microfrontend_course_end
+# .. toggle_implementation: CourseWaffleFlag
+# .. toggle_default: False
+# .. toggle_description: Supports staged rollout of the new micro-frontend-based implementation of the course end page.
+# .. toggle_category: micro-frontend
+# .. toggle_use_cases: incremental_release, open_edx
+# .. toggle_creation_date: UPDATE ME BEFORE MERGE
+# .. toggle_expiration_date: 2020-12-31
+# .. toggle_warnings: Also set settings.LEARNING_MICROFRONTEND_URL and ENABLE_COURSEWARE_MICROFRONTEND.
+# .. toggle_tickets: AA-188
+COURSEWARE_MICROFRONTEND_COURSE_END = CourseWaffleFlag(
+    WAFFLE_FLAG_NAMESPACE, 'microfrontend_course_end', __name__
+)
+
+
+def course_end_is_active(course_key):
+    return (
+        REDIRECT_TO_COURSEWARE_MICROFRONTEND.is_enabled(course_key) and
+        COURSEWARE_MICROFRONTEND_COURSE_END.is_enabled(course_key)
+    )

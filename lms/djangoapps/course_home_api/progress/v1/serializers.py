@@ -63,7 +63,7 @@ class CertificateDataSerializer(serializers.Serializer):
         return cert_data.cert_status == CertificateStatuses.downloadable and cert_data.download_url is not None
 
     def get_is_requestable(self, cert_data):
-        return cert_data.cert_status == CertificateStatuses.requesting and cert_data.request_cert_url is not None
+        return cert_data.cert_status == CertificateStatuses.requesting
 
 
 class CreditRequirementSerializer(serializers.Serializer):

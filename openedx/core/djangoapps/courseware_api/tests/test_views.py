@@ -105,6 +105,16 @@ class CourseApiTestViews(BaseCoursewareTests):
                         if tab['url'] == 'http://zombo.com':
                             found = True
                 assert found, 'external link not in course tabs'
+
+                assert not response.data['user_has_passing_grade']
+                if enrollment_mode == 'audit':
+                    # This message comes from AUDIT_PASSING_CERT_DATA in lms/djangoapps/courseware/views/views.py
+                    expected_audit_message = ('You are enrolled in the audit track for this course. '
+                                              'The audit track does not include a certificate.')
+                    assert response.data['certificate_data']['msg'] == expected_audit_message
+                else:
+                    # Not testing certificate data for verified learner here. That is tested elsewhere
+                    assert response.data['certificate_data'] is None
             elif enable_anonymous and not logged_in:
                 # multiple checks use this handler
                 check_public_access.assert_called()
