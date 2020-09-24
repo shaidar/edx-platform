@@ -54,6 +54,7 @@ from lms.djangoapps.courseware.models import StudentModule
 from lms.djangoapps.courseware.module_render import get_module_for_descriptor, hash_resource
 from lms.djangoapps.courseware.tests.factories import (
     GlobalStaffFactory, RequestFactoryNoCsrf, StudentModuleFactory, UserFactory,
+
 )
 from lms.djangoapps.courseware.tests.test_submitting_problems import TestSubmittingProblems
 from lms.djangoapps.courseware.tests.tests import LoginEnrollmentTestCase
@@ -75,7 +76,6 @@ from xmodule.lti_module import LTIDescriptor
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import (
-    TEST_DATA_MIXED_MODULESTORE,
     ModuleStoreTestCase,
     SharedModuleStoreTestCase
 )

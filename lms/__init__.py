@@ -13,7 +13,3 @@ registration and discovery can work correctly.
 # isn't available.
 import kombu.utils
 kombu.utils.entrypoints = lambda namespace: iter([])
-
-# This will make sure the app is always imported when
-# Django starts so that shared_task will use this app.
-from .celery import APP as CELERY_APP

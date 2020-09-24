@@ -98,7 +98,7 @@ from openedx.core.djangoapps.credit.api import (
     is_credit_course,
     is_user_eligible_for_credit
 )
-from openedx.core.djangoapps.enrollments.api import add_enrollment, get_enrollment
+from openedx.core.djangoapps.enrollments.api import add_enrollment
 from openedx.core.djangoapps.enrollments.permissions import ENROLL_IN_COURSE
 from openedx.core.djangoapps.models.course_details import CourseDetails
 from openedx.core.djangoapps.plugin_api.views import EdxFragmentView
@@ -468,11 +468,6 @@ def course_info(request, course_id):
             if SelfPacedConfiguration.current().enable_course_home_improvements:
                 # Shared code with the new Course Home (DONE)
                 dates_fragment = CourseDatesFragmentView().render_to_fragment(request, course_id=course_id)
-
-        # This local import is due to the circularity of lms and openedx references.
-        # This may be resolved by using stevedore to allow web fragments to be used
-        # as plugins, and to avoid the direct import.
-        from openedx.features.course_experience.views.course_reviews import CourseReviewsModuleFragmentView
 
         # Shared code with the new Course Home (DONE)
         # Get the course tools enabled for this user and course
@@ -1012,7 +1007,7 @@ def dates(request, course_id):
     Display the course's dates.html, or 404 if there is no such course.
     Assumes the course_id is in a valid format.
     """
-    from lms.urls import COURSE_DATES_NAME, RESET_COURSE_DEADLINES_NAME
+    from lms.urls import RESET_COURSE_DEADLINES_NAME
 
     course_key = CourseKey.from_string(course_id)
 
@@ -1616,7 +1611,7 @@ def render_xblock(request, usage_key_string, check_if_enrolled=True):
     Returns an HttpResponse with HTML content for the xBlock with the given usage_key.
     The returned HTML is a chromeless rendering of the xBlock (excluding content of the containing courseware).
     """
-    from lms.urls import COURSE_DATES_NAME, RESET_COURSE_DEADLINES_NAME
+    from lms.urls import RESET_COURSE_DEADLINES_NAME
     from openedx.features.course_experience.urls import COURSE_HOME_VIEW_NAME
 
     usage_key = UsageKey.from_string(usage_key_string)

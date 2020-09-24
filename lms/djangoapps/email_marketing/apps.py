@@ -14,5 +14,4 @@ class EmailMarketingConfig(AppConfig):
     verbose_name = "Email Marketing"
 
     def ready(self):
-        # Register the signal handlers.
-        from . import signals  # pylint: disable=unused-variable
+        pass

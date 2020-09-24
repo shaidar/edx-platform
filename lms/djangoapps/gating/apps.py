@@ -13,5 +13,4 @@ class GatingConfig(AppConfig):
     name = 'gating'
 
     def ready(self):
-        # Import signals to wire up the signal handlers contained within
-        from gating import signals  # pylint: disable=unused-import
+        pass
